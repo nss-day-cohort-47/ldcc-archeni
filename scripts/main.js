@@ -8,9 +8,11 @@ import { SnackDetails } from "./snacks/SnackDetails.js";
 import { Footer } from "./nav/Footer.js";
 import {
 	logoutUser, setLoggedInUser, loginUser, registerUser, getLoggedInUser,
-	getSnacks, getSingleSnack
+	getSnacks, getSingleSnack, useTypesCollection
 } from "./data/apiManager.js";
 
+
+const allTypes = useTypesCollection();
 
 
 const applicationElement = document.querySelector("#ldsnacks");
@@ -66,6 +68,7 @@ applicationElement.addEventListener("click", event => {
 		const snackId = event.target.id.split("__")[1];
 		getSingleSnack(snackId)
 			.then(response => {
+        console.log(response)
 				showDetails(response);
 			})
 	}

@@ -67,7 +67,27 @@ export const getSnacks = () => {
 		})
 }
 
+
+let typesCollection = [];
+
+export const useTypesCollection = () => {
+  //Best practice: we don't want to alter the original state, so
+  //make a copy of it and then return it
+  //the spread operator makes quick work
+  const typesCollectionCopy = [...typesCollection]
+  return typesCollectionCopy;
+}
+
+export const getTypes = () => {
+	return fetch(`${apiURL}/types`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			typesCollection = parsedResponse
+			return parsedResponse;
+		})
+}
+
 export const getSingleSnack = (snackId) => {
-	return fetch(`${apiURL}/snacks/${snackId}`)
+	return fetch(`${apiURL}/snacks/${snackId}?_expand=type&_expand=inFlavor&_expand=shape&_expand=season`)
 	.then(response => response.json())
 }
